@@ -1546,6 +1546,9 @@ input,textarea,select{font:inherit;color:inherit}
 }
 .site-nav-cart::after{content:"3";position:absolute;top:-2px;right:-2px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;width:18px;height:18px;border-radius:50%;display:grid;place-items:center}
 .site-nav-cart svg{width:18px;height:18px;color:var(--ink-2)}
+.site-nav-actions{display:flex;align-items:center;gap:10px}
+.site-nav-burger{display:none;width:38px;height:38px;border-radius:10px;background:var(--bg-elev);place-items:center;cursor:pointer}
+.site-nav-burger svg{width:20px;height:20px;color:var(--ink-2)}
 
 .site-hero{
   background:linear-gradient(135deg,var(--peques-pink-soft) 0%,var(--peques-green-soft) 100%);
@@ -1707,11 +1710,21 @@ input,textarea,select{font:inherit;color:inherit}
   .cliente-explain{position:static}
   .phone-frame{width:340px}
   .admin-shell{grid-template-columns:1fr;min-height:auto}
-  .admin-side{border-right:none;border-bottom:1px solid var(--border);padding:12px}
+  /* Grid items default to min-width:auto and refuse to shrink below their
+     content's intrinsic width, blowing the 1fr column past the viewport;
+     overflow:hidden on .admin-shell then clips the right side. min-width:0
+     lets the column collapse to the viewport so content wraps instead. */
+  .admin-side{border-right:none;border-bottom:1px solid var(--border);padding:12px;min-width:0}
+  .admin-main{min-width:0;max-height:none}
   .admin-nav{flex-direction:row;overflow-x:auto;scrollbar-width:none}
   .admin-side-brand{display:none}
   .product-fill{grid-template-columns:1fr}
   .product-fill-main{width:100%;max-width:300px}
+  /* Storefront preview: collapse desktop nav links to a hamburger so the
+     header fits a phone instead of clipping links off the right edge. */
+  .site-nav{padding:14px 18px}
+  .site-nav-links{display:none}
+  .site-nav-burger{display:grid}
   .site-hero{grid-template-columns:1fr;padding:24px}
   .stack-grid{grid-template-columns:1fr}
   .analytics-grid{grid-template-columns:1fr}
@@ -2805,8 +2818,13 @@ input,textarea,select{font-size:16px}
         <a>Niños</a>
         <a>Trajes de baño</a>
       </div>
-      <div class="site-nav-cart">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      <div class="site-nav-actions">
+        <button class="site-nav-burger" type="button" aria-label="Menú">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+        </button>
+        <div class="site-nav-cart">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+        </div>
       </div>
     </nav>
 
